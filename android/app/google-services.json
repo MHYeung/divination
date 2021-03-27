@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "752517263711",
+    "project_id": "divination-8fcad",
+    "storage_bucket": "divination-8fcad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:752517263711:android:d989efd291d3c2cfa386ea",
+        "android_client_info": {
+          "package_name": "com.nngnstudio.divination"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "752517263711-3l0rum85lsco9d2k8ma1q87gg7gs7qf5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqCy0hiJZ_hvI-rc1EvH09BXtmIfLEKLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "752517263711-3l0rum85lsco9d2k8ma1q87gg7gs7qf5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
