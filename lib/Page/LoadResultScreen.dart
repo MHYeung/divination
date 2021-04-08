@@ -5,7 +5,7 @@ import 'package:divination/Model/AdManager.dart';
 import 'package:flutter/material.dart';
 import 'package:divination/Model/ExplanationModel.dart';
 import 'package:divination/Page/SummaryScreen.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'LoadFortuneScreen.dart';
@@ -16,8 +16,7 @@ class LoadResultScreen extends StatefulWidget {
   final int times;
   final List<int> record;
 
-  const LoadResultScreen({Key key, @required this.index, @required this.luck, this.times, this.record})
-      : super(key: key);
+  const LoadResultScreen({required this.index, required this.luck, required this.times, required this.record});
   @override
   _LoadResultScreenState createState() =>
       _LoadResultScreenState(index: index, luck: luck, times: times);
@@ -27,7 +26,7 @@ class _LoadResultScreenState extends State<LoadResultScreen> {
   int index;
   int luck;
   int times = 0;
-  _LoadResultScreenState({this.index, this.luck, this.times});
+  _LoadResultScreenState({required this.index,required this.luck, required this.times});
 
   Random random = new Random();
 

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 import 'package:divination/Model/AdManager.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,14 @@ import 'package:transparent_image/transparent_image.dart';
 import 'package:divination/Model/ExplanationModel.dart';
 import 'package:divination/Page/LoadFortuneScreen.dart';
 import 'package:flutter/services.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
+import 'package:in_app_review/in_app_review.dart';
+
+enum Availability { LOADING, AVAILABLE, UNAVAILABLE }
+
+extension on Availability {
+  String stringify() => this.toString().split('.').last;
+}
 
 class SummaryScreen extends StatefulWidget {
   final int index;
@@ -15,8 +23,7 @@ class SummaryScreen extends StatefulWidget {
   final DateTime cur;
   final List<int> record;
 
-  const SummaryScreen({Key key, this.index, this.luck, this.cur, this.record})
-      : super(key: key);
+  const SummaryScreen({required this.index,required this.luck,required this.cur, required this.record});
 
   @override
   _SummaryScreenState createState() =>
@@ -30,7 +37,38 @@ class _SummaryScreenState extends State<SummaryScreen> {
   DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
   Random random = new Random();
 
-  _SummaryScreenState({this.index, this.luck, this.cur});
+  _SummaryScreenState({required this.index,required this.luck,required this.cur});
+
+  final InAppReview _inAppReview = InAppReview.instance;
+  String _appStoreId = '';
+  String _microsoftStoreId = '';
+  Availability _availability = Availability.LOADING;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      try {
+        final isAvailable = await _inAppReview.isAvailable();
+
+        setState(() {
+          _availability = isAvailable && !Platform.isAndroid
+              ? Availability.AVAILABLE
+              : Availability.UNAVAILABLE;
+        });
+      } catch (e) {
+        setState(() => _availability = Availability.UNAVAILABLE);
+      }
+    });
+  }
+
+  Future<void> _requestReview() => _inAppReview.requestReview();
+
+  Future<void> _openStoreListing() => _inAppReview.openStoreListing(
+    appStoreId: _appStoreId,
+    microsoftStoreId: _microsoftStoreId,
+  );
 
 
   @override
@@ -50,6 +88,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
         actions: [
           FlatButton.icon(
               onPressed: () {
+                _requestReview();
                 Explanation.record = [];
                 Navigator.of(context).popUntil(ModalRoute.withName("/Home"));
               },
