@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 
 class LoadFortuneScreen extends StatefulWidget {
   final int index;
-  const LoadFortuneScreen({required this.index});
+  const LoadFortuneScreen({@required this.index});
 
   @override
   _LoadFortuneScreenState createState() => _LoadFortuneScreenState(index);

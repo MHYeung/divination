@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:divination/Model/AdManager.dart';
@@ -7,16 +8,22 @@ import 'package:divination/Model/ExplanationModel.dart';
 import 'package:divination/Page/SummaryScreen.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 import 'LoadFortuneScreen.dart';
 
+enum Availability { LOADING, AVAILABLE, UNAVAILABLE }
+
+extension on Availability {
+  String stringify() => this.toString().split('.').last;
+}
 class LoadResultScreen extends StatefulWidget {
   final int index;
   final int luck;
   final int times;
   final List<int> record;
 
-  const LoadResultScreen({required this.index, required this.luck, required this.times, required this.record});
+  const LoadResultScreen({@required this.index, @required this.luck, @required this.times, @required this.record});
   @override
   _LoadResultScreenState createState() =>
       _LoadResultScreenState(index: index, luck: luck, times: times);
@@ -26,7 +33,7 @@ class _LoadResultScreenState extends State<LoadResultScreen> {
   int index;
   int luck;
   int times = 0;
-  _LoadResultScreenState({required this.index,required this.luck, required this.times});
+  _LoadResultScreenState({@required this.index,@required this.luck, @required this.times});
 
   Random random = new Random();
 

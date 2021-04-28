@@ -23,7 +23,7 @@ class SummaryScreen extends StatefulWidget {
   final DateTime cur;
   final List<int> record;
 
-  const SummaryScreen({required this.index,required this.luck,required this.cur, required this.record});
+  const SummaryScreen({@required this.index,@required this.luck,@required this.cur, @required this.record});
 
   @override
   _SummaryScreenState createState() =>
@@ -37,18 +37,16 @@ class _SummaryScreenState extends State<SummaryScreen> {
   DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
   Random random = new Random();
 
-  _SummaryScreenState({required this.index,required this.luck,required this.cur});
+  _SummaryScreenState({@required this.index,@required this.luck,@required this.cur});
 
   final InAppReview _inAppReview = InAppReview.instance;
-  String _appStoreId = '';
-  String _microsoftStoreId = '';
   Availability _availability = Availability.LOADING;
 
   @override
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       try {
         final isAvailable = await _inAppReview.isAvailable();
 
@@ -64,12 +62,6 @@ class _SummaryScreenState extends State<SummaryScreen> {
   }
 
   Future<void> _requestReview() => _inAppReview.requestReview();
-
-  Future<void> _openStoreListing() => _inAppReview.openStoreListing(
-    appStoreId: _appStoreId,
-    microsoftStoreId: _microsoftStoreId,
-  );
-
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +82,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
               onPressed: () {
                 _requestReview();
                 Explanation.record = [];
+                _requestReview();
                 Navigator.of(context).popUntil(ModalRoute.withName("/Home"));
               },
               icon: Icon(
