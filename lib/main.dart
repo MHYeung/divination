@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:divination/Model/AdManager.dart';
+import 'package:divination/Page/luck_page.dart';
 import 'package:flutter/material.dart';
 import 'Page/Explanation.dart';
 import 'Page/HomePage.dart';
@@ -23,7 +24,7 @@ class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final List<Widget> pageName = [
     HomePage(),
-    ExplanationPage(),
+    LuckPage(),
   ];
 
   void onTapped(int index){
@@ -43,26 +44,26 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.brown,
         elevation: 5.0,
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   backgroundColor: Colors.yellow[100],
-      //   selectedItemColor: Colors.amber[800],
-      //   selectedFontSize:15.0,
-      //   unselectedFontSize: 13.0,
-      //   selectedIconTheme: IconThemeData(size: 30.0),
-      //   unselectedIconTheme: IconThemeData(size: 25.0),
-      //   currentIndex: _currentIndex,
-      //   onTap: onTapped,
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       icon: new Icon(Icons.home),
-      //       title: new Text('求籤'),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: new Icon(Icons.book),
-      //       title: new Text('籤文解讀'),
-      //     ),
-      //   ],
-      // ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.yellow[100],
+        selectedItemColor: Colors.amber[800],
+        selectedFontSize:15.0,
+        unselectedFontSize: 13.0,
+        selectedIconTheme: IconThemeData(size: 30.0),
+        unselectedIconTheme: IconThemeData(size: 25.0),
+        currentIndex: _currentIndex,
+        onTap: onTapped,
+        items: [
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.home),
+            title: new Text('求籤'),
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.book),
+            title: new Text('風車轉運'),
+          ),
+        ],
+      ),
       body: pageName[_currentIndex],
     );
   }

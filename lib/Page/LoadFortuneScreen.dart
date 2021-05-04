@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:divination/Model/AdManager.dart';
 import 'package:flutter/material.dart';
 import 'package:divination/Model/ExplanationModel.dart';
 import 'package:transparent_image/transparent_image.dart';

@@ -20,6 +20,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: MediaQuery.of(context).size.height-100,
+      width: double.infinity,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage("temple.jpg"),
@@ -28,11 +30,10 @@ class _HomePageState extends State<HomePage> {
       ),
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+          padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(height: 50),
               ClipRRect(
                 borderRadius: BorderRadius.circular(100.0),
                 child: Container(
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              SizedBox(height: 45.0),
+              SizedBox(height: 25.0),
               Container(
                 height: 150,
                 width: 200,
