@@ -22,11 +22,26 @@ class _LuckPageState extends State<LuckPage> {
     _setspin();
     myInterstitial.show();
     await Future.delayed(Duration(seconds: 1));
-    showDialog(context: context, builder:(BuildContext context){
-      return AlertDialog(
-        title: Text('Good'),
-      );
-    });
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.white.withOpacity(0.7),
+            title: Text(
+              '風車轉運',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+            ),
+            content: Text(
+              'bla bla blaasd afafWQRVGATTRBAGFD VSRBT GVSDFV efas sdsvdtggf afd gagsfewfkltgheithisdf tis  oa  aikfhjkqnjkbqbf',
+              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 25),
+            ),
+            actions: [
+             ElevatedButton(onPressed: (){Navigator.pop(context);}, child: Text('exit')),
+             ElevatedButton(onPressed: (){Navigator.popAndPushNamed(context, '/Home');}, child: Text('Home'))
+            ],
+          );
+        });
   }
 
   void _setspin() {

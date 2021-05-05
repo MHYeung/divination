@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
             title: new Text('求籤'),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.book),
+            icon: new Icon(Icons.text_fields_sharp),
             title: new Text('風車轉運'),
           ),
         ],
