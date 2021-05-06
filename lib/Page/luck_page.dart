@@ -5,6 +5,7 @@ import 'package:divination/Model/AdManager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:web_scraper/web_scraper.dart';
 
 class LuckPage extends StatefulWidget {
   @override
@@ -14,6 +15,11 @@ class LuckPage extends StatefulWidget {
 class _LuckPageState extends State<LuckPage> {
   bool _spinning = false;
   Random random = Random();
+  int index;
+  String quote;
+
+  List<Map<String, dynamic>> quoteList;
+  final webScraper = WebScraper('https://mingyanjiaju.org');
 
   void _spin() async {
     HapticFeedback.mediumImpact();
@@ -21,27 +27,51 @@ class _LuckPageState extends State<LuckPage> {
     await Future.delayed(Duration(seconds: random.nextInt(5)));
     _setspin();
     myInterstitial.show();
+    index = random.nextInt(quoteList.length);
+    quote = quoteList[index]['title'].toString();
     await Future.delayed(Duration(seconds: 1));
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            backgroundColor: Colors.white.withOpacity(0.7),
-            title: Text(
-              '風車轉運',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+            backgroundColor: Colors.yellow[100].withOpacity(0.7),
+            title: Center(
+                child: Text(
+              '轉運不代表馬上好運，世間萬秒環環相扣，要常存好心，存善德，請緊記:',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+            )),
             content: Text(
-              'bla bla blaasd afafWQRVGATTRBAGFD VSRBT GVSDFV efas sdsvdtggf afd gagsfewfkltgheithisdf tis  oa  aikfhjkqnjkbqbf',
-              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 25),
+              quote.substring(quote.indexOf('、') + 1),
+              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 30),
             ),
             actions: [
-             ElevatedButton(onPressed: (){Navigator.pop(context);}, child: Text('exit')),
-             ElevatedButton(onPressed: (){Navigator.popAndPushNamed(context, '/Home');}, child: Text('Home'))
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.yellow[200], padding: EdgeInsets.all(4.0)),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('返回', style: TextStyle(color: Colors.black),)),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: Colors.yellow[200], padding: EdgeInsets.all(4.0)),
+                  onPressed: () {
+                    Navigator.popAndPushNamed(context, '/Home');
+                  },
+                  child: Text('回到主頁', style: TextStyle(color: Colors.black),))
             ],
           );
         });
+  }
+
+  void _getQuote() async {
+    final endpoint = '/juzi/jingdianduanju/2014/1011/847.html';
+    if (await webScraper.loadWebPage(endpoint)) {
+      setState(() {
+        quoteList = webScraper
+            .getElement('div.main > div.text01 > div.textCont > p', []);
+      });
+    }
   }
 
   void _setspin() {
@@ -57,6 +87,7 @@ class _LuckPageState extends State<LuckPage> {
     myInterstitial.dispose();
     myInterstitial.load();
     super.initState();
+    _getQuote();
   }
 
   @override
